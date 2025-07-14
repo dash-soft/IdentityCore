@@ -1,19 +1,17 @@
 package net.dashsoft.identity.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Instant;
 
 @Entity
 @Table(name = "users")
-@NamedQueries({
-        @NamedQuery(name = "User.findAll", query = "select u from User u")
-})
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    private long id;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -44,12 +42,12 @@ public class User {
         this.updatedAt = Instant.now();
     }
 
-    public long getID() {
-        return ID;
+    public long getId() {
+        return id;
     }
 
-    public void setID(long ID) {
-        this.ID = ID;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
@@ -64,8 +62,8 @@ public class User {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password, PasswordEncoder passwordEncoder) {
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getFirstName() {
@@ -88,15 +86,7 @@ public class User {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Instant getUpdatedAt() {
         return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
