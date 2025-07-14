@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: IdentityCore
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/mydatabase}
+    username: ${DB_USERNAME:myuser}
+    password: ${DB_PASSWORD:secret}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: ${SHOW_SQL:false}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8080
